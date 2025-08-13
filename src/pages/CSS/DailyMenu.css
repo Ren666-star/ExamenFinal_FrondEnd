@@ -1,0 +1,148 @@
+/* ================================
+   CONTENEDOR PRINCIPAL DEL MENÚ
+   ================================ */
+.daily-menu {
+  padding: 2rem; /* Espaciado interno */
+  max-width: 1200px; /* No crecerá más allá de este tamaño en pantallas grandes */
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+/* Título del menú */
+.daily-menu h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+/* =================================
+   GRID PARA LAS TARJETAS DE PLATOS
+   ================================= */
+.dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+  /* Crea tantas columnas como quepan, con un mínimo de 300px, el resto flexible */
+  gap: 2rem; /* Espacio entre tarjetas */
+  margin-bottom: 3rem;
+  padding: 1rem 0;
+}
+
+/* RESPONSIVE: En pantallas más pequeñas */
+@media (max-width: 768px) {
+  .dishes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    /* Reduce el tamaño mínimo para que entren más columnas */
+  }
+
+  .dish-details {
+    padding: 1rem;
+  }
+}
+
+/* =================================
+   TARJETA DETALLADA DEL PLATO
+   PARA EL FLIP CARD
+   ================================= */
+.dish-details {
+  max-width: 600px; /* Anchura máxima */
+  height: 500px;    /* Altura fija para soportar la animación 3D */
+  margin: 2rem auto; 
+  perspective: 1000px; /* Da profundidad para el efecto 3D */
+}
+
+/* Interior del flip card (rotará) */
+.dish-details-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s; /* Velocidad de la rotación */
+  transform-style: preserve-3d; /* Permite mostrar front y back separados en 3D */
+}
+
+/* Si tiene clase flipped, rota 180 grados */
+.dish-details.flipped .dish-details-inner {
+  transform: rotateY(180deg);
+}
+
+/* =================================
+   CARAS DE LA TARJETA
+   ================================= */
+.dish-details-front,
+.dish-details-back {
+  position: absolute; /* Superpuestas */
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Oculta la parte trasera al rotar */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+/* Parte trasera rotada para coincidir */
+.dish-details-back {
+  transform: rotateY(180deg);
+}
+
+/* =================================
+   IMAGEN DEL PLATO
+   ================================= */
+.dish-details img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover; /* Cubre el espacio sin distorsionar */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* =================================
+   TEXTO Y DESCRIPCIONES
+   ================================= */
+.dish-details h2 {
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.description {
+  margin-bottom: 1.5rem;
+  line-height: 1.6; /* Más espacio entre líneas */
+}
+
+/* =================================
+   LISTA DE INGREDIENTES
+   ================================= */
+.ingredients h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.ingredients ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem; /* Indentación de la lista */
+}
+
+/* =================================
+   BOTONES (más info / volver)
+   ================================= */
+.more-info-btn, 
+.back-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.more-info-btn:hover, 
+.back-btn:hover {
+  background-color: #3672ea;
+}

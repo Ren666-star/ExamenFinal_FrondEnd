@@ -1,0 +1,106 @@
+/* Contenedor principal de la tarjeta de mesa */
+.table-card {
+  position: relative;               /* Necesario para posicionar la overlay y el tooltip dentro */
+  background: white;                /* Fondo blanco */
+  border-radius: 8px;               /* Bordes redondeados */
+  overflow: hidden;                 /* Asegura que el contenido no se desborde del borde redondeado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s, box-shadow 0.3s; /* Transiciones suaves al hacer hover */
+}
+
+/* Efecto hover solo si NO está reservada */
+.table-card:hover:not(.reserved) {
+  transform: translateY(-5px);       /* Eleva ligeramente la tarjeta */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Aumenta la sombra */
+  cursor: pointer;                   /* Cambia el cursor a mano */
+}
+
+/* Si está seleccionada, muestra un borde rojo */
+.table-card.selected {
+  border: 2px solid #e74c3c;         /* Borde rojo al estar seleccionada */
+}
+
+/* Si está reservada, añade una capa gris encima para indicar indisponible */
+.table-card.reserved .overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(150, 150, 150, 0.4); /* Capa gris translúcida */
+  z-index: 1;                            /* Encima del contenido */
+  pointer-events: none;                  /* Permite que los clics pasen a la tarjeta sin interferir */
+}
+
+/* Imagen de la mesa */
+.table-card img {
+  width: 100%;             /* Ancho completo */
+  height: 150px;           /* Altura fija */
+  object-fit: cover;       /* Recorta y mantiene proporción de la imagen */
+  display: block;          /* Elimina espacio indeseado abajo de la imagen */
+}
+
+/* Contenedor del texto y botón */
+.table-info {
+  position: relative;
+  z-index: 2;              /* Asegura que el texto esté encima de la overlay */
+  padding: 1rem;
+}
+
+/* Título dentro del card */
+.table-info h3 {
+  margin: 0 0 0.3rem 0;    /* Sin margen superior, pequeño margen inferior */
+  color: #333;
+}
+
+/* Botón de reservar */
+.reserve-btn {
+  width: 100%;                     /* Ocupa todo el ancho */
+  padding: 0.5rem;                 /* Espaciado interno */
+  border: none;                    /* Sin borde */
+  border-radius: 5px;
+  background-color: #2ecc71;       /* Verde disponible */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover en botón disponible */
+.reserve-btn:hover:not(:disabled) {
+  background-color: #27ae60;       /* Verde más oscuro */
+}
+
+/* Botón cuando está seleccionada la mesa */
+.reserve-btn.selected {
+  background-color: #e74c3c;       /* Rojo si está seleccionada */
+}
+
+/* Hover del botón seleccionado */
+.reserve-btn.selected:hover {
+  background-color: #c0392b;       /* Rojo más oscuro */
+}
+
+/* Botón cuando está reservada (deshabilitado) */
+.reserve-btn.reserved {
+  background-color: #95a5a6;        /* Gris */
+  cursor: not-allowed;              /* Cursor prohibido */
+}
+
+/* Tooltip oculto inicialmente */
+.table-card .tooltip {
+  position: absolute;
+  top: 8px; right: 8px;             /* Posición en la esquina superior derecha */
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;                       /* Oculto por defecto */
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 3;
+}
+
+/* Muestra el tooltip al hacer hover sobre tarjeta reservada */
+.table-card.reserved:hover .tooltip {
+  opacity: 1;
+}

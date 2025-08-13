@@ -1,0 +1,318 @@
+/* =============================
+   CONTENEDOR PRINCIPAL DE LA PÁGINA
+   ============================= */
+.reservation-page {
+  max-width: 1200px; /* Limita el ancho máximo para que no se vea demasiado extendido en pantallas grandes */
+  margin: 0 auto;    /* Centra horizontalmente en la página */
+  padding: 2rem;     /* Espacio interno alrededor del contenido */
+}
+
+/* =============================
+   INFORMACIÓN DEL RESTAURANTE
+   ============================= */
+.restaurant-info {
+  margin: 2rem 0;  /* Espacio arriba y abajo */
+  padding: 1.5rem; /* Espaciado interno */
+  background: white; /* Fondo blanco para destacarse */
+  border-radius: 8px; /* Bordes redondeados suaves */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera para dar elevación */
+}
+
+.restaurant-info h2 {
+  color: #e74c3c; /* Color rojo destacado para el título */
+  margin-bottom: 1rem; /* Espacio debajo del título */
+}
+
+.restaurant-info p {
+  line-height: 1.6; /* Altura de línea más amplia para legibilidad */
+}
+
+/* =============================
+   FORMULARIO DE RESERVA
+   ============================= */
+.reservation-form {
+  display: grid; /* Usa CSS Grid para organizar el formulario */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajusta columnas automáticamente */
+  gap: 2rem; /* Espacio entre columnas */
+  margin: 2rem 0; /* Espacio vertical con otros elementos */
+}
+
+.form-group {
+  margin-bottom: 1.5rem; /* Espacio inferior entre grupos */
+}
+
+.form-group label {
+  display: block; /* Hace que el label ocupe todo el ancho */
+  margin-bottom: 0.5rem; /* Espacio inferior del label */
+  font-weight: 500; /* Semi-negrita */
+  color: #333; /* Gris oscuro */
+}
+
+.form-group select {
+  width: 100%; /* Select ocupa todo el ancho del contenedor */
+  padding: 0.8rem; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde gris claro */
+  border-radius: 5px; /* Bordes suaves */
+  font-size: 1rem; /* Tamaño de fuente estándar */
+}
+
+/* =============================
+   SELECTOR DE FECHA
+   ============================= */
+.date-selector {
+  display: flex; /* Distribuye en fila */
+  align-items: center; /* Centra verticalmente */
+  justify-content: space-between; /* Espacia al máximo */
+  margin-bottom: 1rem; /* Espacio inferior */
+}
+
+/* Botones del calendario */
+.nav-button {
+  background: none; /* Sin fondo */
+  border: 1px solid #ddd; /* Borde claro */
+  padding: 0.5rem 1rem; /* Espaciado interno */
+  border-radius: 5px; /* Bordes suaves */
+  cursor: pointer; /* Cambia cursor */
+  font-size: 1rem;
+}
+
+.nav-button:hover {
+  background-color: #f5f5f5; /* Color más claro al pasar el mouse */
+}
+
+/* Contenedor del calendario simulado */
+.calendar {
+  height: 200px; /* Altura fija */
+  background: white; /* Fondo blanco */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra ligera */
+  display: flex; /* Centra contenido */
+  align-items: center;
+  justify-content: center;
+  color: #666; /* Texto gris */
+}
+
+/* =============================
+   CUADRÍCULA DE MESAS
+   ============================= */
+.tables-grid {
+  display: grid; /* Usa grid para mesas */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajusta según tamaño */
+  gap: 1.5rem; /* Espacio entre mesas */
+  margin: 2rem 0; /* Margen vertical */
+}
+
+/* =============================
+   BOTONES DE NAVEGACIÓN FINAL
+   ============================= */
+.action-buttons {
+  display: flex;
+  justify-content: space-between; /* Separados a extremos */
+  margin-top: 2rem; /* Espacio arriba */
+}
+
+.back-button, .continue-button {
+  padding: 1rem 2rem; /* Espacio interno */
+  border: none; /* Sin bordes */
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Suaviza cambios */
+}
+
+.back-button {
+  background-color: #f5f5f5; /* Fondo gris claro */
+  color: #333;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0; /* Más oscuro al pasar el mouse */
+}
+
+.continue-button {
+  background-color: #e74c3c; /* Rojo */
+  color: white;
+}
+
+.continue-button:hover {
+  background-color: #c0392b; /* Rojo más oscuro */
+}
+
+.continue-button:disabled {
+  background-color: #cccccc; /* Gris cuando deshabilitado */
+  cursor: not-allowed; /* Cursor prohibido */
+}
+
+/* =============================
+   RESPONSIVE PARA MÓVILES
+   ============================= */
+@media (max-width: 768px) {
+  .reservation-form {
+    grid-template-columns: 1fr; /* Una sola columna */
+  }
+
+  .tables-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Más pequeñas */
+  }
+
+  .action-buttons {
+    flex-direction: column; /* Botones uno sobre otro */
+    gap: 1rem; /* Espacio entre botones */
+  }
+
+  .back-button, .continue-button {
+    width: 100%; /* Ocupa todo el ancho */
+  }
+
+  /* Centra el calendario en móviles */
+  .calendar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .custom-calendar {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .date-selector {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* =============================
+   CUSTOMIZACIÓN DEL REACT DATEPICKER
+   ============================= */
+.custom-calendar .react-datepicker__header {
+  background-color: #f8f9fa; /* Encabezado claro */
+  border-bottom: none;
+}
+
+.custom-calendar .react-datepicker__day-names {
+  margin-top: 0.5rem;
+}
+
+.custom-calendar .react-datepicker__day-name {
+  color: #333;
+  font-weight: 500;
+  width: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.custom-calendar .react-datepicker__day {
+  width: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.2rem;
+  border-radius: 50%;
+}
+
+.custom-calendar .react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+
+.custom-calendar .react-datepicker__day--selected {
+  background-color: #e74c3c; /* Día seleccionado rojo */
+  color: white;
+}
+
+.custom-calendar .react-datepicker__day--selected:hover {
+  background-color: #c0392b;
+}
+
+.custom-calendar .react-datepicker__day--disabled {
+  color: #ccc;
+}
+
+.custom-calendar .react-datepicker__navigation {
+  top: 1rem;
+}
+
+.custom-calendar .react-datepicker__current-month {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.custom-calendar .react-datepicker__month-container {
+  width: 100%;
+}
+
+/* =============================
+   ESTILOS DE LAS TARJETAS DE MESA
+   ============================= */
+.table-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.table-card:hover {
+  transform: scale(1.03); /* Pequeño efecto zoom al pasar mouse */
+}
+
+.table-card.selected {
+  border: 2px solid #e74c3c; /* Borde rojo si está seleccionada */
+}
+
+.table-card.reserved {
+  opacity: 0.5;             /* Mesa reservada se ve atenuada */
+  pointer-events: none;     /* No se puede hacer click */
+}
+
+.table-card .reserved-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(231, 76, 60, 0.8); /* Fondo rojo translúcido */
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* =============================
+   ESTILOS MODERNOS DEL BOTÓN
+   ============================= */
+.table-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #3ac97c, #2ba865); /* Verde degradado */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px #1d5c3a, -4px -4px 8px #4effb4; /* Sombras neumórficas */
+  transition: all 0.4s ease;
+}
+
+.table-button:hover {
+  box-shadow: 6px 6px 12px #1d5c3a, -6px -6px 12px #4effb4;
+  transform: scale(1.08);
+}
+
+.table-button.selected {
+  background: linear-gradient(145deg, #e74c3c, #c0392b); /* Rojo degradado */
+  box-shadow: 4px 4px 12px #7c1f18, -4px -4px 12px #ff6f61;
+  animation: pulse 1s infinite; /* Animación pulsante */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}

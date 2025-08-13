@@ -1,0 +1,47 @@
+/* Barra de navegación principal */
+.navbar {
+  display: flex;                  /* Usa flexbox para alinear los hijos en fila */
+  justify-content: space-between; /* Coloca el logo a la izquierda y los links a la derecha */
+  align-items: center;            /* Centra verticalmente los elementos del navbar */
+  padding: 1rem 2rem;             /* Espaciado interno: 1rem arriba/abajo y 2rem izquierda/derecha */
+  background-color: black;        /* Fondo negro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil debajo del navbar */
+}
+
+/* Imagen del logo */
+.logo-img {
+  height: 50px;         /* Altura fija del logo */
+  object-fit: contain;  /* Mantiene la proporción de la imagen dentro del espacio */
+}
+
+/* Contenedor del logo (permite agregar más elementos al lado del logo si quisieras) */
+.logo {
+  display: flex;           /* Flexbox por si quieres añadir texto o íconos al lado del logo */
+  align-items: center;     /* Centra verticalmente el contenido */
+}
+
+/* Contenedor de los enlaces de navegación */
+.nav-links {
+  display: flex; /* Muestra los enlaces en fila horizontal */
+  gap: 2rem;     /* Espacio horizontal entre cada enlace */
+}
+
+/* Enlaces individuales del navbar */
+.nav-link {
+  text-decoration: none; /* Elimina el subrayado del enlace */
+  color: #fff;           /* Color blanco para los enlaces */
+  font-weight: 500;      /* Peso de fuente medio */
+  transition: color 0.3s; /* Transición suave del color al hacer hover o active */
+}
+
+/* Efecto hover: cuando pasas el mouse sobre el enlace cambia a rojo */
+.nav-link:hover {
+  color: #e74c3c; /* Cambia el color al rojo del tema */
+}
+
+/* Efecto active: cuando el enlace está activo o se hace clic */
+.nav-link:active,
+.nav-link.active {
+  color: #e74c3c; /* Color rojo activo */
+  font-weight: bold; /* Texto en negrita para destacar el enlace activo */
+}

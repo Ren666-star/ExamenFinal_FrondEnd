@@ -1,0 +1,33 @@
+.navbar {
+  position: relative; /* Permite posicionar elementos hijos (como el título) de forma absoluta respecto a este contenedor */
+  display: flex;      /* Flexbox para alinear logo y otros elementos horizontalmente */
+  align-items: center; /* Centra verticalmente los elementos hijos dentro del navbar */
+  height: 80px;       /* Altura fija del navbar */
+  background-color: black; /* Fondo negro */
+  padding: 0 2rem;    /* Padding horizontal de 2rem a izquierda y derecha */
+}
+
+/* Imagen del logo dentro del navbar */
+.logo-img {
+  height: 50px;         /* Altura fija de la imagen del logo */
+  object-fit: contain;  /* Asegura que la imagen mantenga su proporción y se ajuste dentro del contenedor sin deformarse */
+}
+
+/* Contenedor del logo */
+.logo {
+  z-index: 1; /* Eleva el logo por encima de otros elementos en caso de solaparse */
+}
+
+/* Título centrado dentro del navbar */
+.titulo-navbar {
+  position: absolute; /* Posiciona el elemento con respecto a su contenedor padre (navbar) */
+  left: 50%;          /* Lleva el elemento al 50% desde la izquierda */
+  transform: translateX(-50%); /* Centra perfectamente el elemento horizontalmente restándole el 50% de su propio ancho */
+}
+
+/* Estilo del texto del título */
+.titulo-navbar h1 {
+  color: white;      /* Texto blanco */
+  font-size: 1.5rem; /* Tamaño de fuente */
+  margin: 0;         /* Elimina márgenes por defecto */
+}

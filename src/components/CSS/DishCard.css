@@ -1,0 +1,101 @@
+/* ==========================
+   Contenedor externo (tarjeta)
+   ========================== */
+.dish-card-container {
+  perspective: 1000px; /* Da profundidad para el efecto 3D */
+  width: 100%;
+  max-width: 340px;
+  height: 400px;
+  transition: transform 0.3s ease;
+  margin: 10px auto;
+
+  /* Solución para evitar difuminado al usar transform */
+  will-change: transform; /* indica al navegador que este elemento va a cambiar con transform */
+  transform: translateZ(0); /* crea un nuevo contexto 3D, eliminando el blur al escalar o rotar */
+}
+
+/* Pequeño zoom al pasar el mouse */
+.dish-card-container:hover {
+  transform: scale(1.03);
+}
+
+/* ==========================
+   Contenedor interno que rota
+   ========================== */
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; /* Mantiene las caras en 3D */
+  transition: transform 0.8s ease;
+}
+
+/* Al tener la clase flipped, rota 180° */
+.dish-card-container.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+
+/* ==========================
+   Caras frontal y trasera
+   ========================== */
+.flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Oculta la cara trasera al girar */
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Cara frontal: fondo blanco con sombra */
+.flip-front {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen en la cara frontal */
+.flip-front img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Mantiene proporción de la imagen */
+  border-radius: 8px;
+}
+
+/* Cara trasera: rotada 180°, sin sombra para que no se difumine */
+.flip-back {
+  transform: rotateY(180deg);
+  background: #f9f9f9;
+  box-shadow: none; /* Evita efecto borroso */
+}
+
+/* ==========================
+   Botones
+   ========================== */
+.more-info-btn,
+.back-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover en botones */
+.more-info-btn:hover,
+.back-btn:hover {
+  background-color: #3672ea;
+}
+
+
+.flip-back ul {
+  columns: 2;
+  column-gap: 2rem;
+}
