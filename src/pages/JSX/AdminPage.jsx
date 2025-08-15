@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/AdminPage.css';
-import Navbar from '../../components/JSX/Navbar';
+import Navbar from '../../components/JSX/Navbar_Admin';
 import axios from 'axios';
 import { RESERVAS_URL } from '../../config';
 
@@ -26,6 +26,8 @@ const AdminPage = () => {
     correo: '',
     notas: ''
   });
+
+  const [horasDisponibles, setHorasDisponibles] = useState([]);
 
   const cargarReservas = async () => {
     try {
@@ -84,6 +86,7 @@ const AdminPage = () => {
     const month = currentDate.getMonth() + 1;
     const formattedDate = `${year}-${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
     setSelectedDate(formattedDate);
+    setFormData(prev => ({ ...prev, fecha: formattedDate }));
   };
 
   const openModal = (type, reserva = null) => {
@@ -99,8 +102,63 @@ const AdminPage = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Generar horas dinámicas
+  const generarHorasDisponibles = () => {
+    const horas = [];
+    for (let h = 11; h <= 22; h++) {
+      for (let m of [0, 30]) {
+        const horaStr = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}`;
+        horas.push(horaStr);
+      }
+    }
+    const ahora = new Date();
+    return horas.filter(horaStr => {
+      if (formData.fecha === ahora.toISOString().split('T')[0]) {
+        const horaReserva = new Date(`${formData.fecha}T${horaStr}`);
+        return horaReserva > ahora;
+      }
+      return true;
+    });
+  };
+
+  useEffect(() => {
+    setHorasDisponibles(generarHorasDisponibles());
+    const timer = setInterval(() => {
+      setHorasDisponibles(generarHorasDisponibles());
+    }, 60000);
+    return () => clearInterval(timer);
+  }, [formData.fecha]);
+
+  const validarFormulario = () => {
+    const now = new Date();
+    const fechaHoraReserva = new Date(`${formData.fecha}T${formData.hora}`);
+
+    if (fechaHoraReserva < now) {
+      alert("No puedes registrar reservas en fechas y horas pasadas.");
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.correo)) {
+      alert("El correo electrónico no es válido.");
+      return false;
+    }
+
+    const existeReserva = todasLasReservas.some(
+      r => r.mesa === Number(formData.mesa) && r.fecha === formData.fecha && r.hora === formData.hora && r.id !== (currentReserva?.id || null)
+    );
+    if (existeReserva) {
+      alert(`La mesa ${formData.mesa} ya está reservada en esa fecha y hora.`);
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validarFormulario()) return;
+
     const reservaData = { ...formData, mesa: Number(formData.mesa) };
     try {
       if (modalType === 'create') await axios.post(RESERVAS_URL, reservaData);
@@ -131,7 +189,7 @@ const AdminPage = () => {
       <Navbar />
       <div className="top-panel">
         <h2>Panel de Administración</h2>
-        <button className="logout-btn" onClick={() => navigate('/')}>Cerrar Sesión</button>
+        
       </div>
 
       <div className="calendar-container">
@@ -190,23 +248,34 @@ const AdminPage = () => {
           <div className="modal">
             <h3>{modalType==='create' ? 'Nueva' : 'Editar'} Reserva</h3>
             <form onSubmit={handleSubmit}>
-              <input name="mesa" type="number" placeholder="Mesa" value={formData.mesa} onChange={handleInputChange} required />
-              <input name="comensales" type="number" placeholder="Comensales" value={formData.comensales} onChange={handleInputChange} required />
+              <select name="mesa" value={formData.mesa} onChange={handleInputChange} required>
+                <option value="">Selecciona mesa</option>
+                {[1,2,3,4,5,6].map(num => (
+                  <option key={num} value={num}>Mesa {num}</option>
+                ))}
+              </select>
+
+              <select name="comensales" value={formData.comensales} onChange={handleInputChange} required>
+                <option value="">Comensales</option>
+                {Array.from({ length: 11 }, (_, i) => i + 1).map(num => (
+                  <option key={num} value={num}>{num}</option>
+                ))}
+              </select>
+
               <input name="fecha" type="date" value={formData.fecha} onChange={handleInputChange} required />
-              {/* Hora limitada de 11:00 a 22:00 */}
-              <input
-                name="hora"
-                type="time"
-                value={formData.hora}
-                onChange={handleInputChange}
-                required
-                min="11:00"
-                max="22:00"
-              />
+
+              <select name="hora" value={formData.hora} onChange={handleInputChange} required>
+                <option value="">Selecciona hora</option>
+                {horasDisponibles.map(h => (
+                  <option key={h} value={h}>{h}</option>
+                ))}
+              </select>
+
               <input name="cliente" type="text" placeholder="Cliente" value={formData.cliente} onChange={handleInputChange} required />
               <input name="telefono" type="text" placeholder="Teléfono" value={formData.telefono} onChange={handleInputChange} required />
               <input name="correo" type="email" placeholder="Correo" value={formData.correo} onChange={handleInputChange} required />
               <textarea name="notas" placeholder="Notas" value={formData.notas} onChange={handleInputChange} />
+
               <div className="form-buttons">
                 <button type="button" onClick={() => setShowModal(false)}>Cerrar</button>
                 {modalType==='edit' && <button type="button" onClick={handleDelete}>Eliminar</button>}

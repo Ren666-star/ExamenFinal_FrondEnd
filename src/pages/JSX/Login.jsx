@@ -6,7 +6,7 @@ import API_URL from '../../config';
 import '../CSS/estilo.css';
 import googleLogo from '../../Imagenes/Google.png';
 import githubLogo from '../../Imagenes/Github.png';
-import logo from '../../Imagenes/Logo.png';
+import logo from '../../Imagenes/Logo.jpeg';
 
 export default function Login() {
   const navigate = useNavigate();

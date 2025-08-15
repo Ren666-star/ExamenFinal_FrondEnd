@@ -1,40 +1,46 @@
-/* BODY GLOBAL */
+/* ===================
+    BODY GLOBAL
+   =================== */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía limpia y moderna */
-  background-color: #f7f9fb; /* Color de fondo general */
-  margin: 0; /* Elimina márgenes por defecto */
-  padding: 0; /* Elimina padding por defecto */
-}
-
-/* CONTENEDOR GENERAL DEL ADMIN */
-.admin-container {
-  padding: 30px; /* Espacio interior */
-  max-width: 1200px; /* Ancho máximo para no crecer ilimitado */
-  margin: auto; /* Centra el contenedor horizontalmente */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f9fb;
+  margin: 0;
+  padding: 0;
 }
 
 /* ===================
-    PANEL SUPERIOR 
+    CONTENEDOR GENERAL DEL ADMIN
+   =================== */
+.admin-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===================
+    PANEL SUPERIOR
    =================== */
 .top-panel {
-  display: flex; /* Layout horizontal con flexbox */
-  justify-content: space-between; /* Espaciado entre título y botón */
-  align-items: center; /* Centrado vertical */
-  background-color: #2c3e50; /* Fondo azul oscuro */
-  color: white; /* Texto blanco */
-  padding: 15px 30px; /* Espaciado interno */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra sutil */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos bajen en móviles */
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .top-panel h2 {
-  margin: 0; /* Elimina margen superior/inferior */
-  font-size: 24px;
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  flex: 1 1 100%;
 }
 
 /* BOTÓN DE LOGOUT */
 .logout-btn {
-  background: #e74c3c; /* Rojo */
+  background: #e74c3c;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -43,7 +49,7 @@ body {
   cursor: pointer;
 }
 .logout-btn:hover {
-  background: #c0392b; /* Más oscuro al pasar mouse */
+  background: #c0392b;
 }
 
 /* ===================
@@ -52,12 +58,12 @@ body {
 .calendar-container {
   background: white;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   margin-top: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow-x: auto; /* Permite scroll horizontal en móviles */
 }
 
-/* Navegación del calendario (botones para cambiar mes, etc.) */
 .calendar-nav {
   display: flex;
   justify-content: space-between;
@@ -65,11 +71,11 @@ body {
   margin-bottom: 10px;
 }
 
-/* Títulos de los días de la semana y grid de días */
 .calendar-header, .calendar-week {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 columnas para los días */
+  grid-template-columns: repeat(7, 1fr);
   text-align: center;
+  min-width: 350px; /* Evita que se colapse demasiado en móviles */
 }
 
 .calendar-header div {
@@ -77,20 +83,19 @@ body {
   padding: 8px 0;
 }
 
-/* Cada día del calendario */
 .calendar-day {
-  padding: 12px;
+  padding: 10px;
   margin: 2px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }
+
 .calendar-day:hover {
-  background: #3498db; /* Azul */
+  background: #3498db;
   color: white;
 }
 
-/* Días que tienen reservas se muestran resaltados */
 .has-reservations {
   font-weight: bold;
   background: #ecf0f1;
@@ -103,26 +108,27 @@ body {
 .reservas-container {
   background: white;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px;
   margin-top: 20px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow-x: auto; /* Scroll horizontal en móviles */
 }
 
-/* Encabezado de la lista */
 .reservas-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 15px;
 }
 
 .reservas-header h3 {
-  margin: 0;
+  margin: 0 0 10px 0;
+  flex: 1 1 100%;
 }
 
-/* Botón general dentro del contenedor de reservas */
 .reservas-container button {
-  background: #2ecc71; /* Verde */
+  background: #2ecc71;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -133,12 +139,11 @@ body {
   background: #27ae60;
 }
 
-/* Cada ítem de reserva */
 .reserva-item {
   background: #f8f9fa;
-  padding: 15px;
+  padding: 12px;
   margin-bottom: 10px;
-  border-left: 4px solid #3498db; /* Línea azul al lado */
+  border-left: 4px solid #3498db;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
@@ -153,16 +158,16 @@ body {
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.4); /* Sombra oscura translúcida */
+  background: rgba(0,0,0,0.4);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* Siempre encima */
+  z-index: 9999;
 }
 
 .modal {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 12px;
   width: 90%;
   max-width: 500px;
@@ -180,12 +185,13 @@ body {
    =================== */
 .modal form {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Dos columnas */
-  gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .modal form input,
-.modal form textarea {
+.modal form textarea,
+.modal form select {
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -193,19 +199,19 @@ body {
 }
 
 .modal form textarea {
-  grid-column: span 2; /* Ocupa las dos columnas */
-  resize: vertical;    /* Permite cambiar tamaño vertical */
+  grid-column: span 2;
+  resize: vertical;
 }
 
 /* ===================
     BOTONES DEL FORM
    =================== */
 .form-buttons {
-  grid-column: span 2; /* Ocupa las dos columnas */
+  grid-column: span 2;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .form-buttons button {
@@ -216,36 +222,62 @@ body {
   cursor: pointer;
 }
 
-/* Botones específicos con diferentes colores */
-.form-buttons button:nth-child(1) {
-  background: #7f8c8d; /* Gris */
-  color: white;
-}
-.form-buttons button:nth-child(1):hover {
-  background: #636e72;
-}
-
-.form-buttons button:nth-child(2) {
-  background: #e74c3c; /* Rojo */
-  color: white;
-}
-.form-buttons button:nth-child(2):hover {
-  background: #c0392b;
-}
-
-.form-buttons button:nth-child(3) {
-  background: #3498db; /* Azul */
-  color: white;
-}
-.form-buttons button:nth-child(3):hover {
-  background: #2980b9;
-}
+/* Botones específicos */
+.form-buttons button:nth-child(1) { background: #7f8c8d; color:white; }
+.form-buttons button:nth-child(1):hover { background:#636e72; }
+.form-buttons button:nth-child(2) { background: #e74c3c; color:white; }
+.form-buttons button:nth-child(2):hover { background:#c0392b; }
+.form-buttons button:nth-child(3) { background: #3498db; color:white; }
+.form-buttons button:nth-child(3):hover { background:#2980b9; }
 
 /* ===================
-    RESPONSIVE
+    RESPONSIVE PARA MÓVILES
    =================== */
-@media(max-width: 600px) {
+@media(max-width: 768px) {
+  .top-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .calendar-header, .calendar-week {
+    min-width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
   .modal form {
-    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    grid-template-columns: 1fr;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .reservas-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media(max-width: 480px) {
+  .calendar-container, .reservas-container {
+    padding: 10px;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .top-panel h2 {
+    font-size: 18px;
+  }
+
+  .logout-btn, .reservas-container button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .reserva-item p {
+    font-size: 12px;
   }
 }

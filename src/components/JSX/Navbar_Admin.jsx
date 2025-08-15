@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import '../CSS/Navbar.css';
 import logo from '../../Imagenes/Logo.jpeg';
 
+// Usamos variable de entorno para la URL base
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+
 // Componente funcional Navbar
 const Navbar = () => {
   return (
@@ -20,10 +23,8 @@ const Navbar = () => {
 
       {/* Contenedor de los enlaces de navegación */}
       <div className="nav-links">
-        {/* Cada Link funciona como un <a href=""> pero sin recargar la página */}
-        <Link to="/menu" className="nav-link">Platos del Día</Link>
-        <Link to="/reservas" className="nav-link">Reservas</Link>
         <button to= "/" className="logout-btn">Cerrar Sesión</button>
+        
       </div>
     </nav>
   );

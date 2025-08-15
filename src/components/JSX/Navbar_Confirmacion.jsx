@@ -1,7 +1,7 @@
 import React from 'react'; // Importa React para poder usar JSX
 import { Link } from 'react-router-dom'; // Importa Link para hacer navegación sin recargar la página
 import '../CSS/Navbar_Confirmacion.css'; // Importa el CSS específico para este Navbar
-import logo from '../../Imagenes/Logo.png'; // Importa el logo desde tus imágenes locales
+import logo from '../../Imagenes/Logo.jpeg'; // Importa el logo desde tus imágenes locales
 
 // Componente funcional llamado Navbar
 const Navbar = () => {

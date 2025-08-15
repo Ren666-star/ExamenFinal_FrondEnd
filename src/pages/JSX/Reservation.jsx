@@ -21,6 +21,7 @@ const Reservation = () => {
 
   const formatDate = (date) => date.toISOString().split('T')[0];
 
+  // Cargar reservas del backend
   useEffect(() => {
     const fetchReservas = async () => {
       try {
@@ -34,6 +35,7 @@ const Reservation = () => {
     fetchReservas();
   }, [selectedDate, selectedTime]);
 
+  // Manejar selección de mesa
   const handleTableSelect = (tableId) => {
     const yaReservada = reservedTables.some(r =>
       r.fecha === formatDate(selectedDate) &&
@@ -44,8 +46,24 @@ const Reservation = () => {
     setSelectedTable(tableId);
   };
 
+  // Manejar reserva
   const handleReserve = async () => {
-    if (!selectedTable) return;
+    if (!selectedTable) {
+      alert("Selecciona una mesa disponible");
+      return;
+    }
+
+    // Revalidar antes de enviar
+    const yaReservada = reservedTables.some(r =>
+      r.fecha === formatDate(selectedDate) &&
+      r.hora === selectedTime &&
+      parseInt(r.mesa) === selectedTable
+    );
+
+    if (yaReservada) {
+      alert("No se puede reservar. La mesa ya está ocupada a esa hora.");
+      return;
+    }
 
     const nuevaReserva = {
       fecha: formatDate(selectedDate),

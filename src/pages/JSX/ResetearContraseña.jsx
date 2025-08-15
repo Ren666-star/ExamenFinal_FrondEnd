@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/estilo.css';
-import { cambiarContraseña } from '../../utils/localAuth';
 
 export default function ResetearContraseña() {
   const navigate = useNavigate();
@@ -30,16 +29,13 @@ export default function ResetearContraseña() {
     }
 
     setLoading(true);
-    const resultado = cambiarContraseña(correo, '123456');
-    if (resultado.success) {
-      setMensaje('Contraseña restablecida a "123456". Serás redirigido al login...');
+
+    // Simulación de envío de correo
+    setTimeout(() => {
+      setMensaje(`Se ha enviado un correo de recuperación a ${correo}`);
       setTipoMensaje('exito');
-      setTimeout(() => navigate('/'), 3000);
-    } else {
-      setMensaje(resultado.message);
-      setTipoMensaje('error');
-    }
-    setLoading(false);
+      setLoading(false);
+    }, 1500); // simula un pequeño delay de envío
   };
 
   return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar_Confirmacion from '../../components/JSX/Navbar_Confirmacion';
 import '../CSS/Confirmacion.css';
-import { RESERVAS_URL } from '../../config'; // ✅ URL base desde config
+import { RESERVAS_URL } from '../../config';
 
 const Confirmacion = () => {
   const location = useLocation();
@@ -17,6 +17,8 @@ const Confirmacion = () => {
     notas: ''
   });
 
+  const [reservedTables, setReservedTables] = useState([]);
+
   useEffect(() => {
     if (location.state) {
       setReserva(location.state);
@@ -25,6 +27,20 @@ const Confirmacion = () => {
     }
   }, [location.state, navigate]);
 
+  // Cargar reservas actuales para validación
+  useEffect(() => {
+    const fetchReservas = async () => {
+      try {
+        const res = await fetch(`${RESERVAS_URL}`);
+        const data = await res.json();
+        setReservedTables(data);
+      } catch (error) {
+        console.error('Error al cargar las reservas:', error);
+      }
+    };
+    fetchReservas();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormulario(prev => ({ ...prev, [name]: value }));
@@ -32,6 +48,8 @@ const Confirmacion = () => {
 
   const validarTelefono = (telefono) => /^[0-9]{9}$/.test(telefono);
   const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const formatDate = (date) => date.split('T')[0]; // Si viene en ISO
 
   const handleConfirmar = async () => {
     const { nombre, apellido, telefono, correo } = formulario;
@@ -48,6 +66,19 @@ const Confirmacion = () => {
 
     if (!validarEmail(correo)) {
       alert('Ingresa un correo electrónico válido.');
+      return;
+    }
+
+    // Validar que la mesa no esté ocupada a la misma fecha y hora
+    const mesaOcupada = reservedTables.some(r =>
+      r.id !== reserva.id &&
+      r.mesa === reserva.mesa &&
+      r.fecha === reserva.fecha &&
+      r.hora === reserva.hora
+    );
+
+    if (mesaOcupada) {
+      alert('No se puede confirmar. La mesa ya está ocupada a esa hora.');
       return;
     }
 
@@ -115,17 +146,6 @@ const Confirmacion = () => {
           <div className="input-group">
             <h3>Notas:</h3>
             <textarea name="notas" value={formulario.notas} onChange={handleInputChange} rows="3" placeholder="Notas adicionales" />
-          </div>
-          <div className="input-group">
-            <h3>Hora de Reserva:</h3>
-            <input
-              name="hora"
-              type="time"
-              value={reserva.hora}
-              onChange={handleInputChange}
-              min="11:00"
-              max="22:00"
-            />
           </div>
         </div>
       </div>
