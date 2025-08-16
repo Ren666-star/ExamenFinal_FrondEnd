@@ -23,7 +23,7 @@ const Navbar = () => {
 
       {/* Contenedor de los enlaces de navegación */}
       <div className="nav-links">
-        <button to= "/" className="logout-btn">Cerrar Sesión</button>
+        <Link to= "/" className="nav-link">Cerrar Sesión</Link>
         
       </div>
     </nav>

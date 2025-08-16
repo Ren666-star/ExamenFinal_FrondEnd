@@ -316,3 +316,8 @@
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+.react-datepicker__day--disabled {
+  color: #ccc !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}

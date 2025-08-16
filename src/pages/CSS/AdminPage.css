@@ -281,3 +281,8 @@ body {
     font-size: 12px;
   }
 }
+.disabled-day {
+  background-color: #f0f0f0;
+  color: #aaa;
+  pointer-events: none;
+}

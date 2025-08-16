@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Cada Link funciona como un <a href=""> pero sin recargar la página */}
         <Link to="/menu" className="nav-link">Platos del Día</Link>
         <Link to="/reservas" className="nav-link">Reservas</Link>
-        <button to= "/" className="logout-btn">Cerrar Sesión</button>
+        <Link to= "/" className="nav-link">Cerrar Sesión</Link>
       </div>
     </nav>
   );

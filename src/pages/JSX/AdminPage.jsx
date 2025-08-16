@@ -80,11 +80,18 @@ const AdminPage = () => {
     return calendar;
   };
 
+  //  Evitar seleccionar sábados y domingos
   const handleDateClick = (day) => {
     if (!day) return;
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     const formattedDate = `${year}-${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+
+    const dayOfWeek = new Date(formattedDate).getDay();
+    if (dayOfWeek === 5 || dayOfWeek === 6) {
+      return; // 🚫 no permite seleccionar sábados o domingos
+    }
+
     setSelectedDate(formattedDate);
     setFormData(prev => ({ ...prev, fecha: formattedDate }));
   };
@@ -132,6 +139,13 @@ const AdminPage = () => {
   const validarFormulario = () => {
     const now = new Date();
     const fechaHoraReserva = new Date(`${formData.fecha}T${formData.hora}`);
+
+    // 🚫 Bloquear sábados y domingos en el formulario
+    const dayOfWeek = new Date(formData.fecha).getDay();
+    if (dayOfWeek === 5 || dayOfWeek === 6) {
+      alert("No se pueden registrar reservas en sábados ni domingos.");
+      return false;
+    }
 
     if (fechaHoraReserva < now) {
       alert("No puedes registrar reservas en fechas y horas pasadas.");
@@ -189,7 +203,6 @@ const AdminPage = () => {
       <Navbar />
       <div className="top-panel">
         <h2>Panel de Administración</h2>
-        
       </div>
 
       <div className="calendar-container">
@@ -208,11 +221,14 @@ const AdminPage = () => {
             {week.map((day,j) => {
               const dateStr = day ? `${currentDate.getFullYear()}-${(currentDate.getMonth()+1).toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}` : '';
               const hasReservations = day && reservas[dateStr]?.length > 0;
+              const dayOfWeek = day ? new Date(dateStr).getDay() : null;
+              const isWeekend = dayOfWeek === 5 || dayOfWeek === 6;
+
               return (
                 <div
                   key={j}
-                  className={`calendar-day ${hasReservations ? 'has-reservations' : ''}`}
-                  onClick={() => handleDateClick(day)}
+                  className={`calendar-day ${hasReservations ? 'has-reservations' : ''} ${isWeekend ? 'disabled-day' : ''}`}
+                  onClick={() => !isWeekend && handleDateClick(day)}
                 >
                   {day}
                 </div>
@@ -262,7 +278,22 @@ const AdminPage = () => {
                 ))}
               </select>
 
-              <input name="fecha" type="date" value={formData.fecha} onChange={handleInputChange} required />
+              {/* 🚫 Bloqueo de sábados y domingos en input date */}
+              <input 
+                name="fecha" 
+                type="date" 
+                value={formData.fecha} 
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const dayOfWeek = new Date(value).getDay();
+                  if (dayOfWeek === 5 || dayOfWeek === 6) {
+                    alert("No se pueden seleccionar sábados ni domingos.");
+                    return;
+                  }
+                  handleInputChange(e);
+                }} 
+                required 
+              />
 
               <select name="hora" value={formData.hora} onChange={handleInputChange} required>
                 <option value="">Selecciona hora</option>
